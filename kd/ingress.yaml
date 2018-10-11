@@ -4,21 +4,30 @@ kind: Ingress
 metadata:
   annotations:
     ingress.kubernetes.io/secure-backends: "true"
+    ingress.kubernetes.io/proxy-body-size: "20m"
     kubernetes.io/ingress.class: nginx-external
     stable.k8s.psg.io/kcm.provider: http
   labels:
     stable.k8s.psg.io/kcm.class: default
-  name: hocs-frontend
+  name: hocs-ui
 spec:
   rules:
   - host: {{.DOMAIN_NAME}}
     http:
       paths:
       - backend:
-          serviceName: hocs-frontend
+          serviceName: hocs-ui
+          servicePort: 443
+        path: /
+  - host: www.{{.DOMAIN_NAME}}
+    http:
+      paths:
+      - backend:
+          serviceName: hocs-ui
           servicePort: 443
         path: /
   tls:
   - hosts:
     - {{.DOMAIN_NAME}}
-    secretName: hocs-frontend-external-tls
+    - www.{{.DOMAIN_NAME}}
+    secretName: letsencrypt-hocs-ui
