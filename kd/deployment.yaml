@@ -22,34 +22,6 @@ spec:
         role: hocs-frontend
         version: {{.VERSION}}
     spec:
-      initContainers:
-        - name: truststore
-          image: quay.io/ukhomeofficedigital/cfssl-sidekick-jks:v0.0.6
-          securityContext:
-            runAsNonRoot: true
-            capabilities:
-              drop:
-                - SETUID
-                - SETGID
-          args:
-            - --certs=/certs
-            - --command=/usr/bin/create-keystore.sh /certs/tls.pem /certs/tls-key.pem /etc/ssl/certs/acp-root.crt
-            - --domain=hocs-casework.${KUBE_NAMESPACE}.svc.cluster.local
-            - --domain=localhost
-            - --onetime=true
-          env:
-          - name: KUBE_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          volumeMounts:
-          - name: certs
-            mountPath: /certs
-          - name: keystore
-            mountPath: /etc/keystore
-          - name: bundle
-            mountPath: /etc/ssl/certs
-            readOnly: true
       containers:
         - name: certs
           image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.6
