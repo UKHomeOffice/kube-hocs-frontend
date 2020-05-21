@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: certs
-        image: quay.io/ukhomeofficedigital/cfssl-sidekick-jks:v0.0.6
+        image: quay.digital.homeoffice.gov.uk/ukhomeofficedigital/cfssl-sidekick-jks:v0.0.6
         securityContext:
           runAsNonRoot: true
           capabilities:
@@ -56,7 +56,7 @@ spec:
             cpu: 300m
 
       - name: proxy
-        image: quay.io/ukhomeofficedigital/nginx-proxy-govuk:v3.4.12
+        image: quay.digital.homeoffice.gov.uk/ukhomeofficedigital/nginx-proxy-govuk:v3.4.12
         imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
@@ -107,7 +107,7 @@ spec:
             cpu: 100m
 
       - name: keycloak-proxy-web
-        image: quay.io/keycloak/keycloak-gatekeeper:8.0.2
+        image: quay.digital.homeoffice.gov.uk/keycloak/keycloak-gatekeeper:8.0.2
         imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
@@ -162,7 +162,7 @@ spec:
             readOnly: true
 
       - name: keycloak-proxy-api
-        image: quay.io/keycloak/keycloak-gatekeeper:8.0.2
+        image: quay.digital.homeoffice.gov.uk/keycloak/keycloak-gatekeeper:8.0.2
         imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
@@ -215,7 +215,7 @@ spec:
             readOnly: true
 
       - name: hocs-frontend
-        image: quay.io/ukhomeofficedigital/hocs-frontend:{{.VERSION}}
+        image: quay.digital.homeoffice.gov.uk/ukhomeofficedigital/hocs-frontend:{{.VERSION}}
         imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
