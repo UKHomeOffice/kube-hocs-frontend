@@ -48,9 +48,9 @@ elif [[ ${KUBE_NAMESPACE} == "wcs-dev" ]] ; then
 else
     echo "Unable to find environment: ${ENVIRONMENT}"
 fi
-    
+
 if [[ -z ${KUBE_TOKEN} ]] ; then
-    echo "Failed to find a value for KUBE_TOKEN - exiting"
+    echo "Failed to find a value for KUBE_TOKEN - exiting" >&2
     exit -1
 fi
 
@@ -92,7 +92,7 @@ echo "Keycloak domain: ${KC_DOMAIN}"
 echo "domain name: ${DOMAIN_NAME}"
 echo
 
-cd kd
+cd kd || exit
 
 kd --insecure-skip-tls-verify \
    --timeout 10m \
