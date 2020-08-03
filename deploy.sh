@@ -52,12 +52,13 @@ elif [[ ${KUBE_NAMESPACE} == "wcs-dev" ]] ; then
     export DNS_PREFIX=dev.wcs-notprod
     export REPLICAS="1"
 else
-    echo "Unable to find environment: ${ENVIRONMENT}"
+    1>&2 echo "Unable to find environment: ${ENVIRONMENT}"
+    exit 1
 fi
-    
+
 if [[ -z ${KUBE_TOKEN} ]] ; then
-    echo "Failed to find a value for KUBE_TOKEN - exiting"
-    exit -1
+    1>&2  echo "Failed to find a value for KUBE_TOKEN - exiting"
+    exit 1
 fi
 
 if [[ $NOTPROD == "true" ]]; then
@@ -84,7 +85,7 @@ echo "Keycloak domain: ${KC_DOMAIN}"
 echo "${INGRESS_TYPE} domain: ${DOMAIN_NAME}"
 echo
 
-cd kd
+cd kd || exit 1
 
 kd --insecure-skip-tls-verify \
    --timeout 10m \
