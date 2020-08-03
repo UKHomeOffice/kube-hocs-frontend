@@ -64,9 +64,11 @@ fi
 if [[ $NOTPROD == "true" ]]; then
   export KC_REALM=https://sso-dev.notprod.homeoffice.gov.uk
   export REPLICAS="1"
+  export CLUSTER_NAME="acp-notprod"
 else
   export KC_REALM=https://sso.digital.homeoffice.gov.uk/auth/realms/HOCS
   export REPLICAS="2"
+  export CLUSTER_NAME="acp-prod"
 fi
 
 export DNS_SUFFIX=.homeoffice.gov.uk
@@ -87,7 +89,14 @@ echo
 
 cd kd || exit 1
 
-kd --insecure-skip-tls-verify \
+export KUBE_CERTIFICATE_AUTHORITY=/tmp/acp.crt
+if ! curl --silent --fail --retry 5 \
+    https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/$CLUSTER_NAME.crt -o $KUBE_CERTIFICATE_AUTHORITY; then
+  1>&2 echo "[error] failed to download ca for kube api"
+  exit 1
+fi
+
+kd \
    --timeout 10m \
     -f ingress-${INGRESS_TYPE}.yaml \
     -f converter-configmap.yaml \
