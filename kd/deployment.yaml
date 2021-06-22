@@ -320,6 +320,8 @@ spec:
             value: '300'
           - name: COUNTDOWN_FOR_SECONDS
             value: '60'
+          - name: RUNTIME_DISPLAY_ENV
+            value: {{.KUBE_DISPLAY_ENV}}
         resources:
           limits:
             cpu: 900m

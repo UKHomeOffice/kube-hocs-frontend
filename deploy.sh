@@ -39,6 +39,7 @@ else
 
     export DOMAIN_NAME="${SUBNAMESPACE}.${DOMAIN}-notprod.homeoffice.gov.uk"
     export INTERNAL_DOMAIN_NAME="${SUBNAMESPACE}.internal.${DOMAIN}-notprod.homeoffice.gov.uk"
+    export KUBE_DISPLAY_ENV='NOTPROD'
 
     # but remove the ingress for demo (preprod)
     # so at least one non-prod namespace has prod-like keycloak-proxy settings
