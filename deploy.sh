@@ -19,6 +19,7 @@ if [[ ${KUBE_NAMESPACE} == *prod ]]; then
     export ALLOWED_IPS=${POISE_IPS}
     export KUBE_SERVER=https://kube-api-prod.prod.acp.homeoffice.gov.uk
     export UPTIME_PERIOD="Mon-Sun 05:00-23:00 Europe/London"
+    export KUBE_DISPLAY_ENV='PROD'
   if [[ "${KUBE_NAMESPACE}" == "wcs-prod" ]] ; then
       export DOMAIN_NAME="www.wcs.homeoffice.gov.uk"
       export INTERNAL_DOMAIN_NAME=''
